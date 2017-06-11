@@ -21,13 +21,22 @@ end
 # Fails on [1, null, 2]
 
 def kth_smallest(root, k)
-  min_heap = min_heapify(root)
-
   retval = nil
-  for x in 1..k
-    break if min_heap.nil?
+  stack = [min_heapify(root)]
+
+  binding.pry
+
+  (1..k).each do |i|
+    break if stack.empty? 
+    min_heap = stack.shift
     retval = min_heap.val
-    min_heap = pop_smallest_from_min_heap(min_heap)
+
+    if (min_heap.left)
+      stack.push(min_heap.left)
+      next if (min_heap.left.left || min_heap.left.right)
+    end
+
+    stack.push(min_heap.right) if min_heap.right
   end
 
   retval
@@ -67,19 +76,6 @@ def min_heapify(root)
   root
 end
 
-def pop_smallest_from_min_heap(root)
-  children = [root.left, root.right]
-  new_root = root.left || root.right
-  children.delete(new_root)
-  children.compact!
-
-  if children.empty?
-    new_root
-  else
-    insert_into_min_heap(new_root, children.first)
-  end
-end
-
 def insert_into_min_heap(root, newval)
   return root if root.nil? || newval.nil?
   dummy = root
@@ -100,8 +96,9 @@ def insert_into_min_heap(root, newval)
 end
 
 test_tree = TreeNode.new(3)
-test_tree.left = TreeNode.new(2)
+test_tree.left = TreeNode.new(1)
 test_tree.right = TreeNode.new(4)
-test_tree.right.left = TreeNode.new(1)
+# left is null
+test_tree.left.right = TreeNode.new(2)
 
-puts kth_smallest(test_tree, 1)
+puts kth_smallest(test_tree, 4)
