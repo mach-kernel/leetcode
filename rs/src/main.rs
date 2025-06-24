@@ -1,3 +1,5 @@
+mod lib;
+
 mod p1877;
 mod p633;
 // todo: recursive subsequences
@@ -6,6 +8,8 @@ mod p977;
 mod p791;
 mod p169;
 mod p921;
+mod p760;
+mod p1302;
 // todo: union find
 // mod p839;
 
