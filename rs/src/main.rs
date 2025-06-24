@@ -10,6 +10,7 @@ mod p169;
 mod p921;
 mod p760;
 mod p1302;
+mod p146;
 // todo: union find
 // mod p839;
 
