@@ -5,6 +5,7 @@ use std::ptr::null_mut;
 
 // Keep m nodes, drop n nodes, repeat
 // m is always at least 1 (so always keep head)
+
 pub fn delete_nodes(head: Option<Box<ListNode>>, m: i32, n: i32) -> Option<Box<ListNode>> {
     let (mut keep, mut drop) = (m, n);
 
